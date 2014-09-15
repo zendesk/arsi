@@ -14,9 +14,9 @@ Outside that, you can also set values for global directives:
 
 ```ruby
 # any query that matches a whitelist will be exempt from all requirements
-Arsi.whitelist { |sql| sql =~ /FROM translations/ }
-Arsi.reject    { |sql| sql !~ /account_id = \d+/) }
-Arsi.require(:account_id)   { |sql| sql =~ /account_id = \d+/) }
+Arsi.whitelist(:expemt_translations) { |sql| sql =~ /FROM translations/ }
+Arsi.reject(:reject_something)    { |sql| sql !~ /account_id = \d+/) }
+Arsi.require(:must_have_account_id)   { |sql| sql =~ /account_id = \d+/) }
 ```
 
 To configure ARSI per request use an around_filter:
