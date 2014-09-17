@@ -10,3 +10,8 @@ end
 task :default do
   sh "bundle exec rake test"
 end
+
+desc "Open an irb session preloaded with this library"
+task :console do
+  sh "irb -rubygems -r ./lib/arsi.rb"
+end
