@@ -1,5 +1,4 @@
-require 'helper'
-
+require_relative '../helper'
 describe Arsi::BasicInspector do
 
   it "should require arguements" do

@@ -9,8 +9,8 @@ module Arsi
       #TODO: Should we convert the regex to a proc here? Will simplify the code but overhead?
       if string_or_regex
         @regex = normalize_string(string_or_regex)
-      elsif block
-        @proc = block
+      elsif proc
+        @proc = proc
       else
         raise ArgumentError.new("must initialize with a string, regex, or block")
       end

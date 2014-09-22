@@ -21,5 +21,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "mocha"
+  spec.add_development_dependency "mysql2"
+  spec.add_development_dependency "byebug"
+  spec.add_development_dependency "activesupport"
+  spec.add_development_dependency "activerecord"
+  spec.add_runtime_dependency "arel"
+
+
 
 end
