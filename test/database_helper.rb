@@ -24,6 +24,17 @@ class ActiveSupport::TestCase
       t.column :password, :string
       t.column :account_id, :integer
     end
+
+    ActiveRecord::Base.connection.create_table :entries do |t|
+      t.column :title, :string
+      t.column :body, :string
+      t.column :user_id, :integer
+    end
+
+    ActiveRecord::Base.connection.create_table :accounts do |t|
+      t.column :name, :string
+    end
+
   end
 
   def teardown_db
