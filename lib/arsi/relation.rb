@@ -1,27 +1,36 @@
 module Arsi
   module Relation
-    attr_accessor :without_id_check
+    attr_accessor :without_arsi
 
-    def initialize(*)
-      super
-      @without_id_check = false
+    def without_arsi
+      dup = self.dup
+      dup.without_arsi!
+      dup
     end
 
-    def without_id_check
-      @without_id_check = true
-      self
+    def without_arsi!
+      @without_arsi = true
+    end
+
+    def without_arsi?
+      @without_arsi
     end
 
     def delete_all(*)
-      @klass.connection.without_id_check = @without_id_check
-
-      super
+      with_relation_in_connection { super }
     end
 
     def update_all(*)
-      @klass.connection.without_id_check = @without_id_check
+      with_relation_in_connection { super }
+    end
 
-      super
+    private
+
+    def with_relation_in_connection
+      @klass.connection.arsi_relation = self
+      yield
+    ensure
+      @klass.connection.arsi_relation = nil
     end
   end
 end
