@@ -30,7 +30,6 @@ User.where(active: false).without_arsi.delete_all # I know what I'm doing...
 
 ```
 
-
 You can also disable ARSI via `ARSI.disable`
 
 ```ruby
