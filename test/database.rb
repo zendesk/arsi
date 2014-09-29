@@ -13,6 +13,7 @@ ActiveRecord::Schema.verbose = false
       t.column :guid, :string
       t.column :uuid, :string
       t.column :uid, :string
+      t.column :status_id, :integer
 
     end
 

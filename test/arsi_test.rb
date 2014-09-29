@@ -1,7 +1,11 @@
 require_relative "helper"
 
 describe Arsi do
-  it "fail without an account_id" do
+  def setup
+    Arsi.whitelisted_columns = :account_id
+  end
+
+  it "fails without an account_id" do
     assert_raises Arsi::UnscopedSQL do
       assert User.delete_all(:password => 'hello')
     end
@@ -11,9 +15,13 @@ describe Arsi do
     end
   end
 
-  it "not fail with an account_id" do
+  it "does not fail with an account_id" do
     assert User.where(account_id: 1).update_all(:password => 'hello' )
     assert User.delete_all(account_id: 1)
+  end
+
+  it "does not fail with an unqouted account_id" do
+    assert User.where("1=0").where("account_id = 5").delete_all
   end
 
   it "not fail with an id" do
@@ -66,6 +74,10 @@ describe Arsi do
     assert User.delete_all(:uid => 5)
   end
 
+  it "allows UID columns" do
+    assert User.delete_all(:UID => 5)
+  end
+
   it "does not persist changes to the connection" do
     assert User.without_arsi.update_all(:password => 'hello')
     assert_raises Arsi::UnscopedSQL do
@@ -87,6 +99,18 @@ describe Arsi do
   it "can be disabled" do
     Arsi.disable do
       assert User.delete_all(:password => 'hello')
+    end
+  end
+
+  it "doesn't allow status_id as a scoping column" do
+    assert_raises Arsi::UnscopedSQL do
+      assert User.delete_all(:status_id => 5)
+    end
+  end
+
+  it "doesn't allow unqouted status_id as a scoping column" do
+    assert_raises Arsi::UnscopedSQL do
+      assert User.where("status_id = 5").delete_all
     end
   end
 

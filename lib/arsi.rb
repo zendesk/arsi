@@ -17,15 +17,18 @@ module Arsi
 
   class << self
     attr_accessor :violation_callback
-    SQL_MATCHER = /[\s_`(](gu|uu|u)?id`?\s+(=|<>|IN|IS)/i
+    attr_accessor :whitelisted_columns
+    @whitelisted_columns = []
+
+    SCOPED_SQL_MATCHER = /(\w+_id)|([\s`(](gu|uu|u)?id`?)\s+(=|<>|IN|IS)/i
     DEFAULT_CALLBACK = lambda do |sql, relation|
       raise UnscopedSQL, "Missing ID in the where sql:\n#{sql}\nAdd id or use without_arsi"
     end
 
     def sql_check!(sql, relation)
       return if !@enabled || relation.try(:without_arsi?)
-      return if sql =~ SQL_MATCHER
-      report_violation(sql, relation)
+
+      report_violation(sql, relation) unless scoped_sql?(sql)
     end
 
     def arel_check!(arel, relation)
@@ -40,10 +43,19 @@ module Arsi
       @enabled = old
     end
 
+    def whitelisted_columns=(*columns)
+      @whitelisted_columns = columns.flatten.map(&:to_s)
+    end
+
     private
 
     def report_violation(sql, relation)
       (violation_callback || DEFAULT_CALLBACK).call(sql, relation)
     end
+
+    def scoped_sql?(sql)
+      sql =~ SCOPED_SQL_MATCHER && ($1.nil? || whitelisted_columns.include?($1))
+    end
+
   end
 end
