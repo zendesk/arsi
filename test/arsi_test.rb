@@ -90,6 +90,12 @@ describe Arsi do
     end
   end
 
+  # it "should not use update values as scoping columns" do
+  #   assert_raises Arsi::UnscopedSQL do
+  #     assert User.where("1=0").update_all(:account_id => 5)
+  #   end
+  # end
+
   def assert_with_violations_callback(&block)
     old, Arsi.violation_callback = Arsi.violation_callback, block
     assert User.delete_all(:password => 'hello')

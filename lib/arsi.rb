@@ -40,6 +40,14 @@ module Arsi
       @enabled = old
     end
 
+    def disable!
+      @enabled = false
+    end
+
+    def enable!
+      @enabled = true
+    end
+
     private
 
     def report_violation(sql, relation)
