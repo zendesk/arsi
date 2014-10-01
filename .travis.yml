@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.1.1
+
+cache: bundler
+
+before_script:
+  - mysql -u root -e 'DROP DATABASE arsi_test' || true
+  - mysql -u root -e 'CREATE DATABASE arsi_test'
+
+script:
+  - "bundle exec rake test"
