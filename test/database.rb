@@ -2,7 +2,6 @@ ActiveRecord::Base.establish_connection(adapter: "mysql2", database: "arsi")
 ActiveRecord::Schema.verbose = false
 
 ActiveRecord::Schema.define(:version => 1) do
-  drop_table :users rescue nil
   create_table :users, :force => true do |t|
     t.column :name, :string
     t.column :email, :string
@@ -12,7 +11,6 @@ ActiveRecord::Schema.define(:version => 1) do
     t.column :guid, :string
     t.column :uuid, :string
     t.column :uid, :string
-
   end
 
   create_table :entries, :force => true do |t|

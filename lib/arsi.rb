@@ -1,11 +1,8 @@
 require 'arsi/arel_tree_manager'
 require 'arsi/mysql2_adapter'
 require 'arsi/relation'
-require 'arel'
 require 'active_record'
-require 'mysql2'
 require 'active_record/connection_adapters/mysql2_adapter'
-require 'active_support/core_ext/class/attribute'
 
 module Arsi
   class UnscopedSQL < StandardError; end
@@ -33,19 +30,27 @@ module Arsi
       sql_check!(sql, relation)
     end
 
-    def disable
-      old, @enabled = @enabled, false
-      yield
-    ensure
-      @enabled = old
-    end
-
     def disable!
       @enabled = false
     end
 
     def enable!
       @enabled = true
+    end
+
+    def disable(&block)
+      run_with_arsi(false, &block)
+    end
+
+    def enable(&block)
+      run_with_arsi(true, &block)
+    end
+
+    def run_with_arsi(with_arsi)
+      previous, @enabled = @enabled, with_arsi
+      yield
+    ensure
+      @enabled = previous
     end
 
     private

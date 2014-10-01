@@ -2,7 +2,9 @@ PATH
   remote: .
   specs:
     arsi (0.0.1)
+      activerecord (~> 3.2)
       arel
+      mysql2
 
 GEM
   remote: https://rubygems.org/
@@ -40,11 +42,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 3.2.19)
   arsi!
   bundler
   byebug
   minitest
   minitest-rg
-  mysql2
   rake

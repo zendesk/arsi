@@ -103,4 +103,3 @@ describe Arsi do
     Arsi.violation_callback = old
   end
 end
-

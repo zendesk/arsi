@@ -7,4 +7,3 @@ require 'minitest/rg'
 require 'byebug'
 
 require_relative 'database'
-

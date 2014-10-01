@@ -23,7 +23,7 @@ When a violation is found ARSI will trigger the `Arsi.violation_callback` callba
 
 ## Disabling ARSI
 
-You can disable ARSI for a relation by using `ActiveRelation.without_arsi`
+You can disable ARSI for a relation by using `without_arsi`
 
 ```ruby
 User.where(active: false).without_arsi.delete_all # I know what I'm doing...
