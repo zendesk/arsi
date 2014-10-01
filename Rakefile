@@ -13,5 +13,5 @@ task :tag do
   require 'bump'
   version = Bump::Bump.current
   puts "tagging and pushing v#{version}"
-  `git pull --rebase && git push && git tag v#{version} && git push --tags`
+  sh "git pull && git push && git tag v#{version} && git push --tags"
 end
