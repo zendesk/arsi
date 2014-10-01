@@ -14,6 +14,7 @@ module Arsi
 
   class << self
     attr_accessor :violation_callback
+    # see http://rubular.com/r/7xuhnBiOgs and tests
     SQL_MATCHER = /[\s_`(](gu|uu|u)?id`?\s+(=|<>|IN|IS)/i
     DEFAULT_CALLBACK = lambda do |sql, relation|
       raise UnscopedSQL, "Missing ID in the where sql:\n#{sql}\nAdd id or use without_arsi"
