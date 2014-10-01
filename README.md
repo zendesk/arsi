@@ -1,46 +1,53 @@
 # ARSI - ActiveRecord SQL Inspector
 
-ARSI is a library that allows you to put requirements the SQL statements you pass to the database.
+ARSI is a library to ensure that potentially dangerous sql statements are always scoped to an id column.
 
-## Configuration
+Currently ARSI will intercept ActiveRelation.update_all and ActiveRelation.delete_all method calls and verify that the SQL includes a scoping operator on an id column.
 
-You can configure ARSI global settings in e.g. an initializer:
+ID Columns:
+
+- *_id
+- id
+- guid
+- uuid
+- uid
+
+Operators:
+
+- =
+- <>
+- IN
+- IS
+
+When a violation is found ARSI will trigger the `Arsi.violation_callback` callback and pass the current SQL and ActiveRelation object. The default callback will raise an `Arsi::UnscopedSQL` exception. You can override this callback in an initializer.
+
+## Disabling ARSI
+
+You can disable ARSI for a relation by using `without_arsi`
 
 ```ruby
-ARSI.mode = [ :disabled | :fail | :log ]
-ARSI.mode do
-  # Something that allows us to disable/log on a per
-  # request basis so we can use e.g. Arturo
+User.where(active: false).without_arsi.delete_all # I know what I'm doing...
+
+```
+
+You can also disable ARSI via `ARSI.disable`
+
+```ruby
+class ApplicationController < ActionController::Base
+  around_filter :configure_arsi
+  def configure_arsi
+    if use_arsi?
+    	yield
+    else
+    	Arsi.disable { yield }
+    end
+  end
 end
 ```
 
-Outside that, you can also set values for global directives:
 
-```
-ARSI.whitelist { |sql| sql =~ /FROM users/ }
-ARSI.reject    { |sql| sql !~ /account_id = \d+/) }
-ARSI.require   { |sql| sql =~ /account_id = \d+/) }
-```
+## Limitations
 
-In the above, each directive is configured with a block. Alternatively, you can provide a string that *must* be included in the generated SQL, or a regular expression that *must* match the generated SQL in order for the directive to resolve to true. For example:
-
-```ruby
-ARSI.reject("DROP TABLE")
-ARSI.reject(Regexp.new("/SELECT\.+(DROP)/i"))
-ARSI.reject({ |sql| sql.size > 10000 })
-```
-
-You can override the global directives on a scope level by calling the AREL level `arsi` method:
-
-```ruby
-User.arsi(:ignore).count
-User.arsi(:ignore => Regexp.new(...)).find_by_sql(sql)
-User.arsi(:reject => [ ], :ignore => ...)
-User.arsi(:reject => "foo").arsi(:reject => /bar/)
-User.arsi(:mode => :log)
-```
-
-## TODO
-
-:ignore vs. :whitelist vs. arsi(false) etc. - refine the API syntaxes
-
+1. ARSI only supports MySQL
+2. ARSI only supports Rails 3.2
+2. ARSI is using regexs and is not parsing the SQL therefore false negatives are possible with specially crafted SQL statements.
