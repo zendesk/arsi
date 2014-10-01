@@ -5,8 +5,8 @@ rvm:
 cache: bundler
 
 before_script:
-  - mysql -u root -e 'DROP DATABASE arsi_test' || true
-  - mysql -u root -e 'CREATE DATABASE arsi_test'
+  - mysql -u root -e 'DROP DATABASE IF EXISTS arsi_test'
+  - mysql -u root -e 'CREATE DATABASE arsi_test CHARACTER SET utf8'
 
 script:
   - "bundle exec rake test"
