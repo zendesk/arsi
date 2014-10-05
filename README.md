@@ -1,5 +1,7 @@
 # ARSI - ActiveRecord SQL Inspector
 
+[![Build Status](https://magnum.travis-ci.com/zendesk/arsi.svg?token=MsU5XFxeU3atFLQoVGDv&branch=master)](https://magnum.travis-ci.com/zendesk/arsi)
+
 ARSI is a library to ensure that potentially dangerous sql statements are always scoped to an id column.
 
 Currently ARSI will intercept ActiveRelation.update_all and ActiveRelation.delete_all method calls and verify that the SQL includes a scoping operator on an id column.
