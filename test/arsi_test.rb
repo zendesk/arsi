@@ -90,6 +90,10 @@ describe Arsi do
     end
   end
 
+  it "ignores tables without a scopeable column" do
+    assert Migration.delete_all
+  end
+
   # it "should not use update values as scoping columns" do
   #   assert_raises Arsi::UnscopedSQL do
   #     assert User.where("1=0").update_all(:account_id => 5)

@@ -22,17 +22,24 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :accounts, :force => true do |t|
     t.column :name, :string
   end
+
+  create_table :migrations, :id => false, :force => true do |t|
+    t.column :name, :string
+  end
 end
 
-class Account < ActiveRecord::Base
-  has_many :users
+class User < ActiveRecord::Base
+  belongs_to :account
+  has_many :entries
 end
 
 class Entry < ActiveRecord::Base
   belongs_to :user
 end
 
-class User < ActiveRecord::Base
-  belongs_to :account
-  has_many :entries
+class Account < ActiveRecord::Base
+  has_many :users
+end
+
+class Migration < ActiveRecord::Base
 end

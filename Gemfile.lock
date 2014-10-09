@@ -30,9 +30,12 @@ GEM
     columnize (0.8.9)
     debugger-linecache (1.2.0)
     i18n (0.6.11)
+    metaclass (0.0.4)
     minitest (4.7.5)
     minitest-rg (1.1.1)
       minitest (< 5.0)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.10.1)
     mysql2 (0.3.16)
     rake (10.3.2)
@@ -49,4 +52,5 @@ DEPENDENCIES
   byebug
   minitest
   minitest-rg
+  mocha
   rake
