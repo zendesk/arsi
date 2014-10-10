@@ -3,9 +3,7 @@ module Arsi
     attr_accessor :without_arsi
 
     def without_arsi
-      dup = self.dup
-      dup.without_arsi!
-      dup
+      dup.tap(&:without_arsi!)
     end
 
     def without_arsi!
@@ -25,13 +23,9 @@ module Arsi
     end
 
     private
-    SCOPEABLE_REGEX = /(^|_)(gu|uu|u)?id$/i # see http://rubular.com/r/hPVpG9jyoC
-    def arsi_scopeable?
-      arsi_column_names.any? { |c| c =~ SCOPEABLE_REGEX }
-    end
 
-    def arsi_column_names
-      table.columns.map(&:name)
+    def arsi_scopeable?
+      table.columns.map(&:name).any? { |c| c =~ Arsi::SCOPEABLE_REGEX }
     end
 
     def with_relation_in_connection
