@@ -12,13 +12,15 @@ module Arsi
   ActiveRecord::Querying.delegate(:without_arsi, :to => :scoped)
   @enabled = true
 
+  ID_MATCH = "(gu|uu|u)?id"
+  SCOPEABLE_REGEX = /(^|_)#{ID_MATCH}$/i               # http://rubular.com/r/hPVpG9jyoC
+  SQL_MATCHER = /[\s_`(]#{ID_MATCH}`?\s+(=|<>|IN|IS)/i # http://rubular.com/r/7xuhnBiOgs
+  DEFAULT_CALLBACK = lambda do |sql, relation|
+    raise UnscopedSQL, "Missing ID in the where sql:\n#{sql}\nAdd id or use without_arsi"
+  end
+
   class << self
     attr_accessor :violation_callback
-    # see http://rubular.com/r/7xuhnBiOgs and tests
-    SQL_MATCHER = /[\s_`(](gu|uu|u)?id`?\s+(=|<>|IN|IS)/i
-    DEFAULT_CALLBACK = lambda do |sql, relation|
-      raise UnscopedSQL, "Missing ID in the where sql:\n#{sql}\nAdd id or use without_arsi"
-    end
 
     def sql_check!(sql, relation)
       return if !@enabled || relation.try(:without_arsi?)
@@ -47,14 +49,14 @@ module Arsi
       run_with_arsi(true, &block)
     end
 
+    private
+
     def run_with_arsi(with_arsi)
       previous, @enabled = @enabled, with_arsi
       yield
     ensure
       @enabled = previous
     end
-
-    private
 
     def report_violation(sql, relation)
       (violation_callback || DEFAULT_CALLBACK).call(sql, relation)
