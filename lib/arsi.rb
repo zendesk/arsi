@@ -1,6 +1,5 @@
 require 'arsi/arel_tree_manager'
 require 'arsi/mysql2_adapter'
-require 'arsi/querying'
 require 'arsi/relation'
 require 'arsi/table'
 require 'active_record'
@@ -11,7 +10,7 @@ module Arsi
   Arel::TreeManager.send(:include, ArelTreeManager)
   ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:prepend, Mysql2Adapter)
   ActiveRecord::Relation.send(:prepend, Relation)
-  ActiveRecord::Base.extend(Querying)
+  ActiveRecord::Querying.delegate(:without_arsi, :to => :relation)
   Arel::Table.send(:prepend, Table) if ActiveRecord::VERSION::MAJOR >= 4
 
   @enabled = true
