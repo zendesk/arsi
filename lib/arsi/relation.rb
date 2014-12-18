@@ -18,8 +18,13 @@ module Arsi
       with_relation_in_connection { super }
     end
 
-    def update_all(*)
-      with_relation_in_connection { super }
+    def self.prepended(base)
+      base.class_eval do
+        alias_method :update_all_without_arsi, :update_all
+        def update_all(*args)
+          with_relation_in_connection { update_all_without_arsi(*args) }
+        end
+      end
     end
 
     private

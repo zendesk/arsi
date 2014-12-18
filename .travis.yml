@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - 2.1.1
+  - 2.0.0
+  - 2.1.5
 
 cache: bundler
 
@@ -8,6 +9,8 @@ before_script:
   - mysql -u root -e 'DROP DATABASE IF EXISTS arsi_test'
   - mysql -u root -e 'CREATE DATABASE arsi_test CHARACTER SET utf8'
 
-script:
-  - "bundle exec rake test"
+gemfile:
+ - gemfiles/rails3.gemfile
+ - gemfiles/rails40.gemfile
 
+script: bundle exec rake test
