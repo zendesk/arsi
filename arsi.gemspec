@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "arel"
   spec.add_runtime_dependency "mysql2"
-  spec.add_runtime_dependency "activerecord", "~> 3.2"
+  spec.add_runtime_dependency "activerecord", "> 3.2.15", "< 4.1.0"
 
   spec.add_development_dependency "bump"
   spec.add_development_dependency "bundler"
@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-rg"
   spec.add_development_dependency "mocha"
+  spec.add_development_dependency "wwtd"
   spec.add_development_dependency "byebug"
 end

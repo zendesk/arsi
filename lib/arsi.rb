@@ -1,6 +1,8 @@
 require 'arsi/arel_tree_manager'
 require 'arsi/mysql2_adapter'
+require 'arsi/querying'
 require 'arsi/relation'
+require 'arsi/table'
 require 'active_record'
 require 'active_record/connection_adapters/mysql2_adapter'
 
@@ -9,7 +11,9 @@ module Arsi
   Arel::TreeManager.send(:include, ArelTreeManager)
   ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:prepend, Mysql2Adapter)
   ActiveRecord::Relation.send(:prepend, Relation)
-  ActiveRecord::Querying.delegate(:without_arsi, :to => :scoped)
+  ActiveRecord::Base.extend(Querying)
+  Arel::Table.send(:prepend, Table) if ActiveRecord::VERSION::MAJOR >= 4
+
   @enabled = true
 
   ID_MATCH = "(gu|uu|u)?id"
