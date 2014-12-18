@@ -2,6 +2,7 @@ require 'bundler/setup'
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'wwtd/tasks'
+require 'bump/tasks'
 
 Rake::TestTask.new do |test|
   test.pattern = 'test/*_test.rb'
