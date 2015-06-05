@@ -94,6 +94,10 @@ describe Arsi do
     assert Migration.delete_all
   end
 
+  it "prevents frustration when using without_arsi" do
+    assert_raises(RuntimeError) { User.without_arsi { User.delete_all } }
+  end
+
   # it "should not use update values as scoping columns" do
   #   assert_raises Arsi::UnscopedSQL do
   #     assert User.where("1=0").update_all(:account_id => 5)
