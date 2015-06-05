@@ -3,6 +3,9 @@ module Arsi
     attr_accessor :without_arsi
 
     def without_arsi
+      if block_given?
+        raise "Use without_arsi in a chain. Don't pass it a block"
+      end
       dup.tap(&:without_arsi!)
     end
 
