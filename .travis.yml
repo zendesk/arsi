@@ -3,6 +3,7 @@ bundler_args: ""
 rvm:
   - 2.0.0
   - 2.1.5
+  - 2.2.2
 
 cache: bundler
 
@@ -13,5 +14,6 @@ before_script:
 gemfile:
  - gemfiles/rails3.gemfile
  - gemfiles/rails40.gemfile
+ - gemfiles/rails41.gemfile
 
 script: bundle exec rake test

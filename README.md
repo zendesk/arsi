@@ -48,5 +48,5 @@ end
 
 ## Limitations
 
- - MySQL on Rails 3.2
+ - MySQL
  - uses regexs on SQL, false negatives with specially crafted SQL statements can occur
