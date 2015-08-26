@@ -1,4 +1,4 @@
-ActiveRecord::Base.establish_connection(adapter: "mysql2", database: "arsi_test")
+ActiveRecord::Base.establish_connection(adapter: "mysql2", database: "arsi_test", host: "127.0.0.1")
 ActiveRecord::Schema.verbose = false
 
 ActiveRecord::Schema.define(:version => 1) do
