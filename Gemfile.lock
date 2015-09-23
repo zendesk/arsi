@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    arsi (0.2.0)
+    arsi (0.3.0)
       activerecord (> 3.2.15, < 4.3.0)
       arel
       mysql2
