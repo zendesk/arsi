@@ -18,13 +18,14 @@ before_script:
   - mysql -u root -e 'CREATE DATABASE arsi_test CHARACTER SET utf8'
 
 gemfile:
- - gemfiles/rails40.gemfile
- - gemfiles/rails41.gemfile
  - gemfiles/rails42.gemfile
  - gemfiles/rails50.gemfile
 
 script: bundle exec rake test
 
 matrix:
+  exclude:
+    - rvm: 2.3
+      gemfile: gemfiles/rails40.gemfile
   allow_failures:
     - rvm: ruby-head
