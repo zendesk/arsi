@@ -2,7 +2,7 @@ require_relative "helper"
 
 describe ActiveRecord::Relation do
   let(:relation) {
-    if ActiveRecord::VERSION::MAJOR > 6
+    if ActiveRecord::VERSION::MAJOR > 4
       ActiveRecord::Relation.new(klass, stub, stub)
     else
       ActiveRecord::Relation.new(klass, stub)
