@@ -3,8 +3,6 @@ bundler_args: ""
 services:
   - mysql
 rvm:
-  - 2.0.0
-  - 2.1.5
   - 2.2.2
   - 2.4
   - 2.5
