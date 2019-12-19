@@ -1,9 +1,12 @@
 language: ruby
 bundler_args: ""
+services:
+  - mysql
 rvm:
-  - 2.0.0
-  - 2.1.5
-  - 2.2.2
+  - 2.4.9
+  - 2.5.7
+  - 2.6.5
+  - ruby-head
 sudo: false
 cache: bundler
 branches:
@@ -14,14 +17,13 @@ before_script:
   - mysql -u root -e 'CREATE DATABASE arsi_test CHARACTER SET utf8'
 
 gemfile:
- - gemfiles/rails3.gemfile
- - gemfiles/rails40.gemfile
- - gemfiles/rails41.gemfile
  - gemfiles/rails42.gemfile
+ - gemfiles/rails50.gemfile
+ - gemfiles/rails51.gemfile
+ - gemfiles/rails52.gemfile
 
 script: bundle exec rake test
 
 matrix:
-  exclude:
-    - rvm: 2.2.2
-      gemfile: gemfiles/rails3.gemfile
+  allow_failures:
+    - rvm: ruby-head

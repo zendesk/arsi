@@ -3,7 +3,7 @@ require_relative "helper"
 describe Arsi do
   it "fail without an account_id" do
     assert_raises Arsi::UnscopedSQL do
-      assert User.delete_all(:password => 'hello')
+      assert User.where(:password => 'hello').delete_all
     end
 
     assert_raises Arsi::UnscopedSQL do
@@ -13,7 +13,7 @@ describe Arsi do
 
   it "not fail with an account_id" do
     assert User.where(account_id: 1).update_all(:password => 'hello' )
-    assert User.delete_all(account_id: 1)
+    assert User.where(account_id: 1).delete_all
   end
 
   it "not fail with an id" do
@@ -24,7 +24,7 @@ describe Arsi do
 
   it "not fail with without_arsi" do
     assert User.without_arsi.update_all(:password => 'hello')
-    assert User.without_arsi.delete_all(:password => 'hello')
+    assert User.without_arsi.where(:password => 'hello').delete_all
   end
 
   it "does not modify relations with without_arsi" do
@@ -36,7 +36,7 @@ describe Arsi do
 
   it "does not allow columns ending with id" do
     assert_raises Arsi::UnscopedSQL do
-      assert User.delete_all(:android => 5)
+      assert User.where(:android => 5).delete_all
     end
   end
 
@@ -47,7 +47,7 @@ describe Arsi do
   end
 
   it "allows a unqouted id column" do
-    assert User.delete_all("id = -1")
+    assert User.where("id = -1").delete_all
   end
 
   it "allows a simple delete with an id" do
@@ -55,15 +55,15 @@ describe Arsi do
   end
 
   it "allows guid column" do
-    assert User.delete_all(:guid => 5)
+    assert User.where(:guid => 5).delete_all
   end
 
   it "allows uuid columns" do
-    assert User.delete_all(:uuid => 5)
+    assert User.where(:uuid => 5).delete_all
   end
 
   it "allows uid columns" do
-    assert User.delete_all(:uid => 5)
+    assert User.where(:uid => 5).delete_all
   end
 
   it "does not persist changes to the connection" do
@@ -86,7 +86,7 @@ describe Arsi do
 
   it "can be disabled" do
     Arsi.disable do
-      assert User.delete_all(:password => 'hello')
+      assert User.where(:password => 'hello').delete_all
     end
   end
 
@@ -106,7 +106,7 @@ describe Arsi do
 
   def assert_with_violations_callback(&block)
     old, Arsi.violation_callback = Arsi.violation_callback, block
-    assert User.delete_all(:password => 'hello')
+    assert User.where(:password => 'hello').delete_all
   ensure
     Arsi.violation_callback = old
   end

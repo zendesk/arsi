@@ -3,7 +3,7 @@ require 'arsi'
 
 require 'minitest/autorun'
 require 'minitest/rg'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 
 require 'byebug'
 

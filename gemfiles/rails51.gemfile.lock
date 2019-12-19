@@ -9,24 +9,22 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (4.2.11.1)
-      activesupport (= 4.2.11.1)
-      builder (~> 3.1)
-    activerecord (4.2.11.1)
-      activemodel (= 4.2.11.1)
-      activesupport (= 4.2.11.1)
-      arel (~> 6.0)
-    activesupport (4.2.11.1)
-      i18n (~> 0.7)
+    activemodel (5.1.7)
+      activesupport (= 5.1.7)
+    activerecord (5.1.7)
+      activemodel (= 5.1.7)
+      activesupport (= 5.1.7)
+      arel (~> 8.0)
+    activesupport (5.1.7)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.4)
-    builder (3.2.3)
+    arel (8.0.0)
     bump (0.8.0)
     byebug (11.0.1)
     concurrent-ruby (1.1.5)
-    i18n (0.9.5)
+    i18n (1.7.0)
       concurrent-ruby (~> 1.0)
     metaclass (0.0.4)
     minitest (5.13.0)
@@ -45,7 +43,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 4.2.4)
+  activerecord (~> 5.1.7)
   arsi!
   bump
   bundler
