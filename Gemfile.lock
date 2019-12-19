@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    arsi (0.3.0)
+    arsi (0.4.0)
       activerecord (>= 4.2.0, < 6.0)
       arel
       mysql2
@@ -39,7 +39,7 @@ GEM
       minitest (~> 5.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
-    mysql2 (0.5.2)
+    mysql2 (0.5.3)
     rake (10.3.2)
     slop (3.6.0)
     thread_safe (0.3.6)
