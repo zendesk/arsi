@@ -11,7 +11,7 @@ module Arsi
         viz = if ::Arel::VERSION[0].to_i > 6
           ::Arel::Visitors::WhereSql.new(engine.connection.visitor, engine.connection)
         else
-          ::Arel::Visitors::WhereSql.new engine.connection
+          ::Arel::Visitors::WhereSql.new @engine.connection
         end
         ::Arel::Nodes::SqlLiteral.new viz.accept(@ctx, ::Arel::Collectors::SQLString.new).value
       end
