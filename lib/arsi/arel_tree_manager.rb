@@ -17,7 +17,7 @@ module Arsi
         end
       end
 
-      viz = if ::Arel::VERSION.first.to_i == 6
+      viz = if ::Arel::Visitors::WhereSql.instance_method(:initialize).arity == 1
         ::Arel::Visitors::WhereSql.new selected_engine.connection
       else
         ::Arel::Visitors::WhereSql.new(selected_engine.connection.visitor, selected_engine.connection)
