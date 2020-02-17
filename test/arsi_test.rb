@@ -1,4 +1,5 @@
 require_relative "helper"
+SingleCov.covered!
 
 describe Arsi do
   it "fail without an account_id" do
@@ -87,6 +88,17 @@ describe Arsi do
   it "can be disabled" do
     Arsi.disable do
       assert User.where(:password => 'hello').delete_all
+    end
+  end
+
+  it "can be enabled" do
+    begin
+      Arsi.disable!
+      Arsi.enable do
+        assert User.where(id: 1, :password => 'hello').delete_all
+      end
+    ensure
+      Arsi.enable!
     end
   end
 

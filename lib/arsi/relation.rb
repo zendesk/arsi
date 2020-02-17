@@ -1,6 +1,6 @@
 module Arsi
   module Relation
-    attr_accessor :without_arsi
+    attr_writer  :without_arsi
 
     def without_arsi
       if block_given?
