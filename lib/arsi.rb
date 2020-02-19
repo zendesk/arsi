@@ -21,6 +21,7 @@ module Arsi
   end
 
   class << self
+    attr_reader :enabled
     attr_accessor :violation_callback
 
     def sql_check!(sql, relation)
