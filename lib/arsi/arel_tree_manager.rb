@@ -3,7 +3,6 @@ require 'arel'
 module Arsi
   module ArelTreeManager
     AREL_WHERE_SQL_ARITY_1 = ::Arel::VERSION[0].to_i < 7
-    # Arel 9 has no engine reader
     AREL_WHERE_SQL_ENGINE_ACCESSOR = ::Arel::VERSION[0].to_i < 9
 
     # This is from Arel::SelectManager which inherits from Arel::TreeManager.
