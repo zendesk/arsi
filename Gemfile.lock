@@ -34,6 +34,7 @@ GEM
     mocha (1.11.2)
     mysql2 (0.5.3)
     rake (13.0.1)
+    single_cov (1.3.2)
     thread_safe (0.3.6)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
@@ -52,6 +53,7 @@ DEPENDENCIES
   minitest-rg
   mocha
   rake
+  single_cov
   wwtd
 
 BUNDLED WITH
