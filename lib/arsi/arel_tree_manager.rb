@@ -13,7 +13,7 @@ module Arsi
       selected_engine = provided_engine
       if selected_engine == :none
         selected_engine = if AREL_WHERE_SQL_ENGINE_ACCESSOR
-          self.engine || Arel::Table.engine
+          self.engine || ::Arel::Table.engine
         else
           Arel::Table.engine
         end
