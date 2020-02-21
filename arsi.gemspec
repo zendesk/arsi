@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "wwtd"
   spec.add_development_dependency "byebug"
+  spec.add_development_dependency "single_cov"
 end

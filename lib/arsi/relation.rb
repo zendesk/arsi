@@ -1,6 +1,6 @@
 module Arsi
   module Relation
-    attr_accessor :without_arsi
+    attr_writer  :without_arsi
 
     def without_arsi
       if block_given?
@@ -14,7 +14,8 @@ module Arsi
     end
 
     def without_arsi?
-      @without_arsi || !arsi_scopeable?
+      return @without_arsi if defined?(@without_arsi) && @without_arsi
+      !arsi_scopeable?
     end
 
     def delete_all(*)

@@ -2,25 +2,29 @@ require 'arel'
 
 module Arsi
   module ArelTreeManager
+    AREL_WHERE_SQL_ARITY_1 = ::Arel::VERSION[0].to_i < 7
+    AREL_WHERE_SQL_ENGINE_ACCESSOR = ::Arel::VERSION[0].to_i < 9
+
     # This is from Arel::SelectManager which inherits from Arel::TreeManager.
     # We need where_sql on both Arel::UpdateManager and Arel::DeleteManager so we add it to the parent class.
-    if ::Arel::VERSION[0].to_i >= 6
-      def where_sql(engine = Arel::Table.engine)
-        return if @ctx.wheres.empty?
+    def where_sql(provided_engine = :none)
+      return if @ctx.wheres.empty?
 
-        viz = if ::Arel::VERSION[0].to_i > 6
-          ::Arel::Visitors::WhereSql.new(engine.connection.visitor, engine.connection)
+      selected_engine = provided_engine
+      if selected_engine == :none
+        selected_engine = if AREL_WHERE_SQL_ENGINE_ACCESSOR
+          self.engine || ::Arel::Table.engine
         else
-          ::Arel::Visitors::WhereSql.new engine.connection
+          Arel::Table.engine
         end
-        ::Arel::Nodes::SqlLiteral.new viz.accept(@ctx, ::Arel::Collectors::SQLString.new).value
       end
-    else
-      def where_sql
-        return if @ctx.wheres.empty?
-        viz = ::Arel::Visitors::WhereSql.new @engine.connection
-        ::Arel::Nodes::SqlLiteral.new viz.accept @ctx
+
+      viz = if AREL_WHERE_SQL_ARITY_1
+        ::Arel::Visitors::WhereSql.new selected_engine.connection
+      else
+        ::Arel::Visitors::WhereSql.new(selected_engine.connection.visitor, selected_engine.connection)
       end
+      ::Arel::Nodes::SqlLiteral.new viz.accept(@ctx, ::Arel::Collectors::SQLString.new).value
     end
   end
 end

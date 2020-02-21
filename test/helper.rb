@@ -1,4 +1,6 @@
 require 'bundler/setup'
+require 'single_cov'
+SingleCov.setup :minitest
 require 'arsi'
 
 require 'minitest/autorun'
