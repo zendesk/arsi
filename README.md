@@ -1,7 +1,5 @@
 # ARSI - ActiveRecord SQL Inspector
 
-[![Build Status](https://travis-ci.org/zendesk/arsi.svg?branch=master)](https://travis-ci.org/zendesk/arsi)
-
 Block sql statements that are not scoped by id in `.update_all` and `.delete_all`.
 
 ID Columns:

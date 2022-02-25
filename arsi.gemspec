@@ -14,15 +14,12 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "arel"
   spec.add_runtime_dependency "mysql2"
-  spec.add_runtime_dependency "activerecord", ">= 4.2.0", "< 6.0"
+  spec.add_runtime_dependency "activerecord", ">= 5.0.0", "< 6.0"
 
   spec.add_development_dependency "bump"
-  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-rg"
   spec.add_development_dependency "mocha"
-  spec.add_development_dependency "wwtd"
-  spec.add_development_dependency "byebug"
   spec.add_development_dependency "single_cov"
 end

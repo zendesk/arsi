@@ -1,6 +1,14 @@
-ActiveRecord::Base.establish_connection(adapter: "mysql2", database: "arsi_test", host: "127.0.0.1")
-ActiveRecord::Schema.verbose = false
+connection_options = { adapter: "mysql2", host: "127.0.0.1", username: "root" }
+database = 'arsi_test'
+ActiveRecord::Base.establish_connection(connection_options)
+begin
+  ActiveRecord::Base.connection.create_database(database)
+rescue ActiveRecord::StatementInvalid
+  # already exists ...
+end
+ActiveRecord::Base.establish_connection(connection_options.merge(database: database))
 
+ActiveRecord::Schema.verbose = false
 ActiveRecord::Schema.define(:version => 1) do
   create_table :users, :force => true do |t|
     t.column :name, :string
