@@ -74,6 +74,18 @@ describe Arsi do
     end
   end
 
+  describe "when the model has a different connection" do
+    before do
+      Account.establish_connection(adapter: "mysql2", database: "arsi_test_shard", host: "127.0.0.1")
+      Arel::UpdateManager.any_instance.expects(:where_sql).with(Account).returns("UPDATE `accounts` SET `accounts`.`name` = 'foo' WHERE `accounts`.`id` = ?")
+    end
+
+    it "connects to the database associated with the relation" do
+      refute_equal Account.connection, ActiveRecord::Base.connection
+      assert Account.where(id: 1).update_all(:name => 'foo')
+    end
+  end
+
   it "allows ActiveRecord::Base#columns" do
     assert User.columns
   end
