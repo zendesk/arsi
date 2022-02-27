@@ -75,9 +75,13 @@ describe Arsi do
   end
 
   describe "when the model has a different connection" do
+    let(:wheresql_stub) { stub }
+    let(:viz_stub) { stub }
     before do
       Account.establish_connection(adapter: "mysql2", database: "arsi_test", host: "127.0.0.1", username: "root")
-      Arel::UpdateManager.any_instance.expects(:where_sql).with(Account).returns("UPDATE `accounts` SET `accounts`.`name` = 'foo' WHERE `accounts`.`id` = ?")
+      Arel::Visitors::WhereSql.expects(:new).with(Account.connection.visitor, Account.connection).returns(wheresql_stub)
+      wheresql_stub.expects(:accept).returns(viz_stub)
+      viz_stub.expects(:value).returns("UPDATE `accounts` SET `accounts`.`name` = 'foo' WHERE `accounts`.`id` = ?")
     end
 
     it "connects to the database associated with the relation" do
