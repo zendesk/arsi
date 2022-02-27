@@ -76,7 +76,7 @@ describe Arsi do
 
   describe "when the model has a different connection" do
     before do
-      Account.establish_connection(adapter: "mysql2", database: "arsi_test_shard", host: "127.0.0.1")
+      Account.establish_connection(adapter: "mysql2", database: "arsi_test", host: "127.0.0.1", username: "root")
       Arel::UpdateManager.any_instance.expects(:where_sql).with(Account).returns("UPDATE `accounts` SET `accounts`.`name` = 'foo' WHERE `accounts`.`id` = ?")
     end
 
