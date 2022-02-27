@@ -31,7 +31,7 @@ module Arsi
     end
 
     def arel_check!(arel, relation)
-      sql = arel.respond_to?(:ast) ? arel.where_sql(relation.klass) : arel.to_s
+      sql = arel.respond_to?(:ast) ? arel.where_sql(relation&.klass) : arel.to_s
       sql_check!(sql, relation)
     end
 
