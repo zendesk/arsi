@@ -46,7 +46,6 @@ DEPENDENCIES
   minitest
   minitest-rg
   mocha
-  mysql2
   rake
   single_cov
 
