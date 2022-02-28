@@ -2,6 +2,15 @@ require_relative "helper"
 SingleCov.covered!
 
 describe Arsi do
+  def with_arsi_disabled
+    begin
+      Arsi.disable!
+      yield
+    ensure
+      Arsi.enable!
+    end
+  end
+
   it "fail without an account_id" do
     assert_raises Arsi::UnscopedSQL do
       assert User.where(:password => 'hello').delete_all
@@ -85,17 +94,9 @@ describe Arsi do
     end
   end
 
-  describe "when arsi is disabled" do
-    before do
+  it "does not call sql_check if disabled" do
+    with_arsi_disabled do
       Arsi::UnscopedSQL.expects(:sql_check!).never
-      Arsi.disable!
-    end
-
-    after do
-      Arsi.enable!
-    end
-
-    it "does not call sql_check if disabled" do
       assert User.where(:password => 'hello').delete_all
     end
   end
@@ -108,14 +109,11 @@ describe Arsi do
   end
 
   it "can be enabled in a block" do
-    begin
-      Arsi.disable!
+    with_arsi_disabled do
       Arsi.enable do
         assert User.where(id: 1, :password => 'hello').delete_all
       end
       refute Arsi.enabled
-    ensure
-      Arsi.enable!
     end
   end
 
