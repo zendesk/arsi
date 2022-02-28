@@ -85,6 +85,21 @@ describe Arsi do
     end
   end
 
+  describe "when arsi is disabled" do
+    before do
+      Arsi::UnscopedSQL.expects(:sql_check!).never
+      Arsi.disable!
+    end
+
+    after do
+      Arsi.enable!
+    end
+
+    it "does not call sql_check if disabled" do
+      assert User.where(:password => 'hello').delete_all
+    end
+  end
+
   it "can be disabled in a block" do
     Arsi.disable do
       assert User.where(:password => 'hello').delete_all
