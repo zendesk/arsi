@@ -11,6 +11,8 @@ jobs:
       matrix:
         ruby: ['2.5', '2.6', '2.7']
         rails: ['50', '51', '52']
+    env:
+      BUNDLE_GEMFILE: gemfiles/rails${{ matrix.rails }}.gemfile
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -18,16 +20,12 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
-        - 3306:3306
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-    - uses: zendesk/checkout@v2
-    - uses: zendesk/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-      env:
-        BUNDLE_GEMFILE: gemfiles/rails${{ matrix.rails }}.gemfile
-    - run: bundle exec rake test
-      env:
-        BUNDLE_GEMFILE: gemfiles/rails${{ matrix.rails }}.gemfile
+      - uses: zendesk/checkout@v2
+      - uses: zendesk/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: bundle exec rake test
