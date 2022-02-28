@@ -3,8 +3,7 @@ require 'single_cov'
 SingleCov.setup :minitest
 require 'arsi'
 
-require 'minitest/autorun'
-require 'minitest/rg'
+require 'maxitest/autorun'
 require 'mocha/minitest'
 
 require_relative 'database'

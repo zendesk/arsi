@@ -18,8 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bump"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "minitest"
-  spec.add_development_dependency "minitest-rg"
+  spec.add_development_dependency "maxitest"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "single_cov"
 end
