@@ -91,9 +91,12 @@ describe Arsi do
       Arsi.disable!
     end
 
+    after do
+      Arsi.enable!
+    end
+
     it "does not call sql_check if disabled" do
       assert User.where(:password => 'hello').delete_all
-      Arsi.enable!
     end
   end
 
