@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    arsi (0.4.2)
+    arsi (0.4.3)
       activerecord (>= 5.0.0, < 6.0)
       arel
       mysql2
@@ -46,7 +46,6 @@ DEPENDENCIES
   minitest
   minitest-rg
   mocha
-  mysql2
   rake
   single_cov
 
