@@ -31,7 +31,7 @@ module Arsi
     end
 
     def arel_check!(arel, relation)
-      return if !@enabled
+      return unless @enabled
       sql = arel.respond_to?(:ast) ? arel.where_sql : arel.to_s
       sql_check!(sql, relation)
     end
