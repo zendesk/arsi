@@ -1,4 +1,12 @@
-connection_options = { adapter: "mysql2", host: "127.0.0.1", username: "root" }
+require 'uri'
+mysql_url = URI(ENV['MYSQL_URL'] || 'mysql://root@127.0.0.1')
+connection_options = {
+  adapter: "mysql2",
+  host: mysql_url.host,
+  port: mysql_url.port,
+  username: mysql_url.user,
+  password: mysql_url.password
+}
 database = 'arsi_test'
 ActiveRecord::Base.establish_connection(connection_options)
 begin
