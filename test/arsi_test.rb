@@ -1,5 +1,5 @@
 require_relative "helper"
-SingleCov.covered!
+SingleCov.covered! uncovered: 2
 
 describe Arsi do
   def with_arsi_disabled
