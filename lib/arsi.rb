@@ -28,7 +28,8 @@ module Arsi
       return unless @enabled
       return if relation && relation.without_arsi?
 
-      sql = arel.respond_to?(:ast) ? arel.where_sql : arel.to_s
+      # ::Arel::TreeManager, String, nil or ... ?
+      sql = arel.respond_to?(:where_sql) ? arel.where_sql : arel.to_s
       sql_check!(sql, relation)
     end
 
