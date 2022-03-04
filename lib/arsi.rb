@@ -24,15 +24,10 @@ module Arsi
     attr_reader :enabled
     attr_accessor :violation_callback
 
-    def sql_check!(sql, relation)
-      return unless @enabled
-      return if relation && relation.without_arsi?
-      return if SQL_MATCHER.match?(sql)
-      report_violation(sql, relation)
-    end
-
     def arel_check!(arel, relation)
       return unless @enabled
+      return if relation && relation.without_arsi?
+
       sql = arel.respond_to?(:ast) ? arel.where_sql : arel.to_s
       sql_check!(sql, relation)
     end
@@ -54,6 +49,11 @@ module Arsi
     end
 
     private
+
+    def sql_check!(sql, relation)
+      return if SQL_MATCHER.match?(sql)
+      report_violation(sql, relation)
+    end
 
     def run_with_arsi(with_arsi)
       previous, @enabled = @enabled, with_arsi
