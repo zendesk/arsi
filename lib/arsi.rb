@@ -25,7 +25,8 @@ module Arsi
     attr_accessor :violation_callback
 
     def sql_check!(sql, relation)
-      return if !@enabled || relation.try(:without_arsi?)
+      return unless @enabled
+      return if relation && relation.without_arsi?
       return if SQL_MATCHER.match?(sql)
       report_violation(sql, relation)
     end
