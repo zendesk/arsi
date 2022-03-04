@@ -39,6 +39,11 @@ ActiveRecord::Schema.define(:version => 1) do
     t.column :name, :string
   end
 
+  create_table :heads, :force => true do |t|
+    t.column :nose_count, :integer
+    t.column :user_id, :integer
+  end
+
   create_table :migrations, :id => false, :force => true do |t|
     t.column :name, :string
   end
@@ -47,6 +52,7 @@ end
 class User < ActiveRecord::Base
   belongs_to :account
   has_many :entries
+  has_one :head
 end
 
 class Entry < ActiveRecord::Base
@@ -55,6 +61,10 @@ end
 
 class Account < ActiveRecord::Base
   has_many :users
+end
+
+class Head < ActiveRecord::Base
+  belongs_to :user
 end
 
 class Migration < ActiveRecord::Base

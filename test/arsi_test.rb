@@ -9,6 +9,15 @@ describe Arsi do
     Arsi.enable!
   end
 
+  it "works with has_one relationship" do
+    user = User.create!(name: "Benjamin")
+    user.create_head!
+
+    # Change an attribute on the has_one relation and then save it
+    user.head.nose_count = 1
+    user.head.save!
+  end
+
   it "fail without an account_id" do
     assert_raises Arsi::UnscopedSQL do
       assert User.where(:password => 'hello').delete_all
