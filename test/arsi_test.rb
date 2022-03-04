@@ -3,12 +3,10 @@ SingleCov.covered!
 
 describe Arsi do
   def with_arsi_disabled
-    begin
-      Arsi.disable!
-      yield
-    ensure
-      Arsi.enable!
-    end
+    Arsi.disable!
+    yield
+  ensure
+    Arsi.enable!
   end
 
   it "fail without an account_id" do

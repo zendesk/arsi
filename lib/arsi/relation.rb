@@ -34,7 +34,7 @@ module Arsi
     private
 
     def arsi_scopeable?
-      @klass.columns.any? { |c| c.name =~ Arsi::SCOPEABLE_REGEX }
+      @klass.columns.any? { |c| Arsi::SCOPEABLE_REGEX.match?(c.name) }
     end
 
     def with_relation_in_connection

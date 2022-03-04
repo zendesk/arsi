@@ -6,9 +6,9 @@ require 'active_record/connection_adapters/mysql2_adapter'
 
 module Arsi
   class UnscopedSQL < StandardError; end
-  Arel::TreeManager.send(:include, ArelTreeManager)
-  ActiveRecord::ConnectionAdapters::Mysql2Adapter.send(:prepend, Mysql2Adapter)
-  ActiveRecord::Relation.send(:prepend, Relation)
+  Arel::TreeManager.include(ArelTreeManager)
+  ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend(Mysql2Adapter)
+  ActiveRecord::Relation.prepend(Relation)
   ActiveRecord::Querying.delegate(:without_arsi, :to => :relation)
 
   @enabled = true
@@ -26,7 +26,7 @@ module Arsi
 
     def sql_check!(sql, relation)
       return if !@enabled || relation.try(:without_arsi?)
-      return if sql =~ SQL_MATCHER
+      return if SQL_MATCHER.match?(sql)
       report_violation(sql, relation)
     end
 
