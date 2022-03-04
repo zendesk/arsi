@@ -1,5 +1,5 @@
 require_relative "helper"
-SingleCov.covered! file: 'lib/arsi/relation.rb'
+SingleCov.covered! file: 'lib/arsi/relation.rb', uncovered: 1
 
 describe ActiveRecord::Relation do
   let(:relation) {
