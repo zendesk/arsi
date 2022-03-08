@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z lib README.md`.split("\x0")
 
+  spec.required_ruby_version = '>= 2.5.0'
+
   spec.add_runtime_dependency "arel"
   spec.add_runtime_dependency "mysql2"
   spec.add_runtime_dependency "activerecord", ">= 5.0.0", "< 6.0"
