@@ -1,9 +1,6 @@
 name: CI
-on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+on: push
+
 jobs:
   build:
     name: ruby${{ matrix.ruby }} rails${{ matrix.rails }} rake test
