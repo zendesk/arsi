@@ -1,5 +1,5 @@
 require_relative "helper"
-SingleCov.covered!
+SingleCov.covered! uncovered: 2
 
 describe Arsi do
   def with_arsi_disabled
@@ -7,6 +7,15 @@ describe Arsi do
     yield
   ensure
     Arsi.enable!
+  end
+
+  it "works with has_one relationship" do
+    user = User.create!(name: "Benjamin")
+    user.create_head!
+
+    # Change an attribute on the has_one relation and then save it
+    user.head.nose_count = 1
+    user.head.save!
   end
 
   it "fail without an account_id" do
