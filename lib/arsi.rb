@@ -6,7 +6,8 @@ require 'active_record/connection_adapters/mysql2_adapter'
 
 module Arsi
   class UnscopedSQL < StandardError; end
-  Arel::TreeManager.include(ArelTreeManager)
+  Arel::UpdateManager.include(ArelTreeManager)
+  Arel::DeleteManager.include(ArelTreeManager)
   ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend(Mysql2Adapter)
   ActiveRecord::Relation.prepend(Relation)
   ActiveRecord::Querying.delegate(:without_arsi, :to => :relation)
