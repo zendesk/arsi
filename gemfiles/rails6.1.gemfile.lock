@@ -1,0 +1,50 @@
+PATH
+  remote: ..
+  specs:
+    arsi (1.0.0)
+      activerecord (>= 5.0.0, < 7.1)
+      mysql2
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (6.1.7)
+      activesupport (= 6.1.7)
+    activerecord (6.1.7)
+      activemodel (= 6.1.7)
+      activesupport (= 6.1.7)
+    activesupport (6.1.7)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
+    bump (0.10.0)
+    concurrent-ruby (1.1.10)
+    i18n (1.12.0)
+      concurrent-ruby (~> 1.0)
+    maxitest (4.1.0)
+      minitest (>= 5.0.0, < 5.15.0)
+    minitest (5.14.4)
+    mocha (1.14.0)
+    mysql2 (0.5.4)
+    rake (13.0.6)
+    single_cov (1.7.0)
+    tzinfo (2.0.5)
+      concurrent-ruby (~> 1.0)
+    zeitwerk (2.6.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activerecord (~> 6.1.0)
+  arsi!
+  bump
+  maxitest
+  mocha
+  rake
+  single_cov
+
+BUNDLED WITH
+   2.3.21

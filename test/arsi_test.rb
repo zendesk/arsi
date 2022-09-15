@@ -35,7 +35,7 @@ describe Arsi do
 
   it "not fail with an id" do
     e = Entry.create!(:title => 'test')
-    assert e.update_attributes(:title => 'hello')
+    assert e.update(:title => 'hello')
     assert e.destroy
   end
 
