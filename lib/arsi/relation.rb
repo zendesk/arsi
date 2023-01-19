@@ -18,10 +18,6 @@ module Arsi
       !arsi_scopeable?
     end
 
-    def _update_record(*)
-      with_relation_in_connection { super }
-    end
-
     def delete_all(*)
       with_relation_in_connection { super }
     end
