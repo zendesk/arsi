@@ -1,6 +1,7 @@
 require 'arsi/arel_tree_manager'
 require 'arsi/mysql2_adapter'
 require 'arsi/relation'
+require 'arsi/persistence'
 require 'active_record'
 require 'active_record/connection_adapters/mysql2_adapter'
 
@@ -10,6 +11,7 @@ module Arsi
   Arel::DeleteManager.include(ArelTreeManager)
   ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend(Mysql2Adapter)
   ActiveRecord::Relation.prepend(Relation)
+  ActiveRecord::Base.prepend(Persistence)
   ActiveRecord::Querying.delegate(:without_arsi, :to => :relation)
 
   @enabled = true
@@ -53,10 +55,13 @@ module Arsi
     private
 
     def arel_where_sql(arel, relation)
-      return arel.where_sql if relation.nil?
-      return arel.where_sql unless relation.model.respond_to?(:arel_engine)
-
-      arel.where_sql(relation.model.arel_engine)
+      if relation.nil? 
+        arel.where_sql
+      elsif !relation.model.respond_to?(:arel_engine)
+        arel.where_sql(relation.model)
+      else
+        arel.where_sql(relation.model.arel_engine)
+      end
     end
 
     def sql_check!(sql, relation)
