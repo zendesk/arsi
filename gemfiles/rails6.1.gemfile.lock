@@ -1,8 +1,8 @@
 PATH
   remote: ..
   specs:
-    arsi (1.1.0)
-      activerecord (>= 5.0.0, < 7.1)
+    arsi (1.1.1)
+      activerecord (>= 5.2.0, < 7.1)
       mysql2
 
 GEM
@@ -47,4 +47,4 @@ DEPENDENCIES
   single_cov
 
 BUNDLED WITH
-   2.3.21
+   2.3.20

@@ -132,6 +132,30 @@ describe Arsi do
     assert_raises(RuntimeError) { User.without_arsi { User.delete_all } }
   end
 
+  it "passes the correct engine when updating a record" do
+    e = Entry.create!(title: 'test')
+    Arel::UpdateManager.any_instance.expects(:where_sql).with(Entry).returns('WHERE `entries`.`id` = ?')
+    assert e.update(title: 'hello')
+  end
+
+  it "passes the correct engine when updating a relation" do
+    e = Entry.create!(title: 'test')
+    Arel::UpdateManager.any_instance.expects(:where_sql).with(Entry).returns('WHERE `entries`.`id` = ?')
+    assert Entry.where(id: e.id).update_all(title: 'hello')
+  end
+
+  it "passes the correct engine when deleting a record" do
+    e = Entry.create!(title: 'test')
+    Arel::DeleteManager.any_instance.expects(:where_sql).with(Entry).returns('WHERE `entries`.`id` = ?')
+    assert e.destroy
+  end
+
+  it "passes the correct engine when updating a relation" do
+    e = Entry.create!(title: 'test')
+    Arel::DeleteManager.any_instance.expects(:where_sql).with(Entry).returns('WHERE `entries`.`id` = ?')
+    assert Entry.where(id: e.id).delete_all
+  end
+
   # it "should not use update values as scoping columns" do
   #   assert_raises Arsi::UnscopedSQL do
   #     assert User.where("1=0").update_all(:account_id => 5)
