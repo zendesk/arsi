@@ -1,3 +1,5 @@
+require 'active_record'
+
 module Arsi
   module Relation
     attr_writer  :without_arsi
@@ -28,15 +30,28 @@ module Arsi
 
     private
 
-    def arsi_scopeable?
-      @klass.columns.any? { |c| Arsi::SCOPEABLE_REGEX.match?(c.name) }
-    end
+    if ActiveRecord.gem_version >= Gem::Version.new("8.0")
+      def arsi_scopeable?
+        @model.columns.any? { |c| Arsi::SCOPEABLE_REGEX.match?(c.name) }
+      end
 
-    def with_relation_in_connection
-      @klass.connection.arsi_relation = self
-      yield
-    ensure
-      @klass.connection.arsi_relation = nil
+      def with_relation_in_connection
+        @model.connection.arsi_relation = self
+        yield
+      ensure
+        @model.connection.arsi_relation = nil
+      end
+    else
+      def arsi_scopeable?
+        @klass.columns.any? { |c| Arsi::SCOPEABLE_REGEX.match?(c.name) }
+      end
+
+      def with_relation_in_connection
+        @klass.connection.arsi_relation = self
+        yield
+      ensure
+        @klass.connection.arsi_relation = nil
+      end
     end
   end
 end

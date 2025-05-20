@@ -1,0 +1,4 @@
+*.log
+tmp/
+
+gemfiles/rails_main*.lock
