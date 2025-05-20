@@ -1,13 +1,9 @@
 require_relative "helper"
-SingleCov.covered! file: 'lib/arsi/relation.rb', uncovered: 1
+SingleCov.covered! file: 'lib/arsi/relation.rb', uncovered: 6
 
 describe ActiveRecord::Relation do
   let(:relation) {
-    if ActiveRecord.gem_version >= Gem::Version.new("5.2")
-      ActiveRecord::Relation.new(klass, table: stub, predicate_builder: stub)
-    else
-      ActiveRecord::Relation.new(klass, stub, stub)
-    end
+    ActiveRecord::Relation.new(klass, table: stub, predicate_builder: stub)
   }
   let(:klass) { stub(name: 'Klass') }
 

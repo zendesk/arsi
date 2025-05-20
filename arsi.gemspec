@@ -12,14 +12,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z lib README.md`.split("\x0")
 
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 3.2.0'
 
   spec.add_runtime_dependency "mysql2"
-  spec.add_runtime_dependency "activerecord", ">= 5.2.0", "< 7.2"
-
-  spec.add_development_dependency "bump"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "maxitest"
-  spec.add_development_dependency "mocha"
-  spec.add_development_dependency "single_cov"
+  spec.add_runtime_dependency "activerecord", ">= 7.0"
 end
