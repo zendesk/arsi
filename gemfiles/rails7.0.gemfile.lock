@@ -18,17 +18,44 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    bump (0.10.0)
     concurrent-ruby (1.1.10)
+    date (3.4.1)
+    debug (1.10.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    erb (5.0.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    maxitest (4.1.0)
-      minitest (>= 5.0.0, < 5.15.0)
+    io-console (0.8.0)
+    irb (1.15.2)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    m (1.6.2)
+      method_source (>= 0.6.7)
+      rake (>= 0.9.2.2)
+    method_source (1.1.0)
     minitest (5.14.4)
-    mocha (1.14.0)
+    minitest-rg (5.3.0)
+      minitest (~> 5.0)
+    mocha (2.7.1)
+      ruby2_keywords (>= 0.0.5)
     mysql2 (0.5.6)
-    rake (13.0.6)
-    single_cov (1.7.0)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
+    psych (5.2.6)
+      date
+      stringio
+    rake (13.2.1)
+    rdoc (6.14.0)
+      erb
+      psych (>= 4.0.0)
+    reline (0.6.1)
+      io-console (~> 0.5)
+    ruby2_keywords (0.0.5)
+    single_cov (1.11.0)
+    stringio (3.1.7)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
 
@@ -38,8 +65,10 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 7.0.0)
   arsi!
-  bump
-  maxitest
+  debug
+  m
+  minitest
+  minitest-rg
   mocha
   rake
   single_cov
